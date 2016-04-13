@@ -27,7 +27,7 @@ from model import *
 #@params ak accessKeyId
 #@params authStringPrefix authStringPrefix
 import hmac, hashlib
-@app.route('/auth', methods = ['POST'])
+@app.route('/FaceSign/auth', methods = ['POST'])
 def auth():
 	sk = Key.query.filter(Key.ak == request.json['ak']).first().sk
 	if sk:
@@ -37,7 +37,7 @@ def auth():
 		return pack_resp(False, None, 'Unexpected accessKeyId.')
         
 #教师登录
-@app.route('/login', methods = ['POST'])
+@app.route('/FaceSign/login', methods = ['POST'])
 def login():
     account = request.json['account']
     teacher = Teacher.query.filter(Teacher.no == account).first()
@@ -52,7 +52,7 @@ def login():
         return pack_resp(False, None, 'No such teacher.')
         
 #查询签到
-@app.route('/records/<int:course>/<int:begin>')
+@app.route('/FaceSign/records/<int:course>/<int:begin>')
 def records(course, begin):
     if not 'teacher' in session:
         return pack_resp(False, url_for('.login'), 'Please login before.')
@@ -71,7 +71,7 @@ def records(course, begin):
     return pack_resp(True, {'signs': signs, 'unsigns': unsigns})
     
 #学生签到
-@app.route('/sign', methods = ['POST'])
+@app.route('/FaceSign/sign', methods = ['POST'])
 def sign():
     if Student.sign(request.json['no']):
         return pack_resp(True)

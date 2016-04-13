@@ -3,6 +3,7 @@
 from flask import Flask, request, jsonify, session, g, url_for
 
 app = Flask(__name__)
+app.secret_key = 'This is a secret key for GaoQiFaceSign, make in 2016/4/13'
 
 
 ####################操作数据####################

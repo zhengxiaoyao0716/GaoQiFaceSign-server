@@ -86,7 +86,7 @@ class Classes(Base):
     
     id = Column(Integer, primary_key = True)
     no = Column(String(20), unique = True)  #班级编号
-    name = Column(String(50))
+    name = Column(String(50), unique = True)
     
     students = relationship('Student')
     
@@ -105,6 +105,7 @@ class Student(Base):
     id = Column(Integer, primary_key = True)
     no = Column(String(20), unique = True)  #学生编号
     name = Column(String(50))
+    classes = Column(String(50), unique = True)
     
     classes_id = Column(Integer, ForeignKey('classes.id'))
     
@@ -114,6 +115,7 @@ class Student(Base):
         self.id = id
         self.name = name
         self.classes_id = classes_id
+        self.classes = Classes.query.get(classes_id).name
         
     def __repr__(self):
         return '<No.%r| name: %r>'%(self.no, self.name)

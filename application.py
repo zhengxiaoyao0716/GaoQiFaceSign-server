@@ -65,9 +65,9 @@ def records(course, begin):
     for classes in course.classes_list:
         for student in classes.students:
             if student.sign_time > begin:
-                signs.append(student)
+                signs.append(student.column_dict())
             else:
-                unsigns.append(student)
+                unsigns.append(student.column_dict())
     return pack_resp(True, {'signs': signs, 'unsigns': unsigns})
     
 #学生签到

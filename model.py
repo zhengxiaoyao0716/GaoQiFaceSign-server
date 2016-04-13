@@ -49,7 +49,7 @@ class Teacher(Base):
     #课程列表
     def course_list(self):
         result = []
-        for course in self.course:
+        for course in self.courses:
             result.append(course.column_dict())
         return result
         

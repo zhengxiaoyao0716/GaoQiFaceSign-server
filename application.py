@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, session, g, url_for
 
 app = Flask(__name__)
 app.secret_key = 'This is a secret key for GaoQiFaceSign, make in 2016/4/13'
+app.debug = True
 
 
 ####################操作数据####################
@@ -45,7 +46,7 @@ def login():
     if teacher:
         if teacher.verify_password(request.json['password']):
             session['teacher'] = teacher.id
-            return pack_resp(True, {'no': teacher.no, 'name': name, 
+            return pack_resp(True, {'no': teacher.no, 'name': teacher.name, 
                 'courses': teacher.course_list()
             })
         return pack_resp(False, None, 'Miss password.')

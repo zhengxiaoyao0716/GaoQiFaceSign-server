@@ -33,7 +33,7 @@ import hmac, hashlib
 def auth():
 	sk = Key.query.filter(Key.ak == request.json['ak']).first().sk
 	if sk:
-		signingKey = hmac.new(secretAccessKey.__str__(), request.form['authStringPrefix'], hashlib.sha256).hexdigest().__str__()
+		signingKey = hmac.new(sk.__str__(), request.form['authStringPrefix'], hashlib.sha256).hexdigest().__str__()
 		return pack_resp(True, {'signingKey': signingKey})
 	else:
 		return pack_resp(False, None, 'Unexpected accessKeyId.')

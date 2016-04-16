@@ -74,7 +74,7 @@ class Course(Base):
         
     def class_list(self):
         result = []
-        for classes_no in self.classes_no_list:
+        for classes_no in self.classes_no_list.split(' '):
             classes = Classes.query.filter(Classes.no == classes_no).first()
             result.append(classes)
         return result

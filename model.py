@@ -105,7 +105,7 @@ class Student(Base):
     id = Column(Integer, primary_key = True)
     no = Column(String(20), unique = True)  #学生编号
     name = Column(String(50))
-    classes = Column(String(50), unique = True)
+    classes = Column(String(50))
     
     classes_id = Column(Integer, ForeignKey('classes.id'))
     

@@ -68,7 +68,7 @@ def records(course, begin):
     course = Course.query.get(course)
     signs = []
     unsigns = []
-    for classes in course.classes_list:
+    for classes in course.class_list():
         for student in classes.students:
             if student.sign_time > begin:
                 signs.append(student.column_dict())

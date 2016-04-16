@@ -122,7 +122,7 @@ class Student(Base):
         
     @classmethod
     def sign(cls, no):
-        student = Student.query.filter(Student.no == request.json['no']).first()
+        student = Student.query.filter(Student.no == no).first()
         if student:
             student.sign_time = int(time.time())
             return True

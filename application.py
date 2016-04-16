@@ -12,9 +12,13 @@ app.debug = True
 from database import db_session
 
 @app.teardown_appcontext
-def shutdown_session(exception = None):
-	db_session.commit()
-	db_session.remove()
+def shutdown_session(response_or_exc):
+    try: 
+        if response_or_exc is None:
+            db_session.commit()
+    finally:
+        db_session.remove()
+    return response_or_exc
     
     
 ####################工具方法####################

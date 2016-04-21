@@ -45,6 +45,10 @@ class Teacher(Base):
     #验证密码
     def verify_password(self, password):
         return pwd_context.verify(password, self.password)
+    
+    #设置密码    
+    def set_password(self, password):
+        self.password = pwd_context.encrypt(password)
         
     #课程列表
     def course_list(self):

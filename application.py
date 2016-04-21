@@ -57,6 +57,20 @@ def login():
     else:
         return pack_resp(False, None, 'No such teacher.')
         
+#修改密码
+@app.route('/FaceSign/change_pwd', methods = ['POST'])
+def change_pwd():
+    if not 'teacher' in session:
+        return pack_resp(False, url_for('.login'), 'Please login before.')
+    teacher = Teacher.query.get(session['teacher'])
+    if not teacher:
+        return pack_resp(False, url_for('.login'), 'Invalid session.')
+    if not teacher.verify_password(request.json['old_pwd']):
+        return pack_resp(False, None, 'Old password error.')
+    teacher.set_password(request.json['new_pwd'])
+    return pack_resp(True, 'Your password has already changed.')
+    
+        
 #查询签到
 @app.route('/FaceSign/records/<int:course>/<int:begin>')
 def records(course, begin):
